@@ -4,7 +4,7 @@
 #include<string>
 #include<algorithm>
 #include<vector>
-
+#include<string.h>
 
 #pragma warning( disable : 4996 )
 
@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
 	ifstream myfile(argv[1]);
 	char del[20];
 	int i = 0;
-	while (argv[2][i] != NULL)
+	while (argv[2][i] != '\0')
 	{
 		del[i] = argv[2][i];
 		i++;
@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
 				myfile >> str;
 
 
-				cout <<"reverse " << str << endl;
+				cout << "reverse " << str << endl;
 				int i = 0;
 				while (str[i])
 					i++;
@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
 				myfile >> str;
 
 				//cout << str << endl;
-				cout << "split " << str  << endl;
+				cout << "split " << str << endl;
 				char *s = strtok(str, del);
 
 				while (s != NULL)
@@ -75,7 +75,7 @@ int main(int argc, char* argv[])
 			char str[256];
 			cin >> str;
 
-			cout << str << endl;
+			//      cout << str << endl;
 			int i = 0;
 			while (str[i])
 				i++;
@@ -88,8 +88,8 @@ int main(int argc, char* argv[])
 		}
 		else if (strcmp(command, "split") == 0)
 		{
-			char str[256], del[20];
-			cin >> str >> del;
+			char str[256];
+			cin >> str;
 
 			//cout << str << endl;
 
@@ -110,7 +110,7 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	
+
 	system("pause");
 	return 0;
 }
