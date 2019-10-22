@@ -3,15 +3,15 @@
 #dialog --menu "sys info" 15 40 4 "1" "CPU INFO" "2" "MEMORY INFO" "3" "NETWORK INFO" "4" "FILE BROWSER"
 
 #!/bin/bash
-OPTION=$(dialog --title "Test Menu Dialog" --menu "Choose your option" 15 60 4 \
-"1" "Grilled Spicy Sausage" \
-"2" "Grilled Halloumi Cheese" \
-"3" "Charcoaled Chicken Wings" \
-"4" "Fried Aubergine"  3>&1 1>&2 2>&3)
+OPTION=$(dialog --title "SYS INFO" --menu "" 15 60 4 \
+"1" "CPU INFO" \
+"2" "Memory INFO" \
+"3" "NETWORK INFO" \
+"4" "FILE BROWSER"  3>&1 1>&2 2>&3)
  
 exitstatus=$?
-if [ $exitstatus = 0 ]; then
-    echo "Your chosen option:" $OPTION
+if [ $exitstatus = 1 ]; then
+    dialog --title "CPU INFO" --gauge "tt" 10 40 27
 else
     echo "You chose Cancel."
 fi
