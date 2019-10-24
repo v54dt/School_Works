@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/local/bin/bash
 OPTION=$(
   dialog --title "SYS INFO" --menu "" 15 60 4 \
   "1" "CPU INFO" \
@@ -9,7 +9,8 @@ OPTION=$(
 
 exitstatus=$?
 if [ $exitstatus = 0 ]; then
-  if [ $OPTION = 1 ]; then
+  case ${OPTION} in
+  "1")
     #dialog --title "CPU INFO" --gauge 5 30 27
     #dialog --msgbox "${sysctl hw.model | awk -F":" '{print("CPU Model:","\t",$2)}'}"
     result_model=$(sysctl hw.model | awk -F":" '{print("CPU Model:","\t",$2)}')
@@ -21,17 +22,17 @@ if [ $exitstatus = 0 ]; then
     ${result_model} 
     ${result_machine} 
     ${result_ncpu}" 15 60
+    ;;
 
-  elif [ $OPTION = 2 ]; then
+  "2")
+
     #result_total_mem=$(sysctl hw.realmem | awk '{print("Total: %.2f", $2/1024/1024/1024}' )
     #result_used_mem=$(sysctl hw.usermem | awk '{print("Used: $.2f", $2/1024/1024/1024}' )
     #result_free_mem=$(sysctl hw.realmem hw.usermem | awk 'NR==1{resut=$2;}NR==2{result=result-$2}END{print("%.2f",result/1024/1024/1024)}')
     #sysctl hw.realmem hw.usermem | awk 'NR==1{resut=$2;}NR==2{result=result-$2}END{print(result)}'
 
-
-
     #result_parcent=$(syctl hw.realmem hw.usermem hw.realmem | awk 'NR==1{result=$2}NR==2{result=result-$1}NR==3{result')
-    
+
     result_total_mem=$(sysctl hw.realmem | cut -d' ' -f2 | bc)
     result_used_mem=$(sysctl hw.usermem | cut -d' ' -f2 | bc)
     declare -i result_free_mem
@@ -39,15 +40,17 @@ if [ $exitstatus = 0 ]; then
     result_free_mem=result_total_mem-result_used_mem
     result_persent=${result_free_mem}*100/${result_total_mem}
     result_title="Memory Info and Usage"
-    
+
     dialog --gauge "
     ${result_title}
     Total: ${result_total_mem}
     Used: ${result_used_mem}
     Free: ${result_free_mem}
     " 15 60 5 40 ${result_persent}
+    ;;
 
-  elif [ $OPTION = 3 ] then
+  "3")
+
     net_OPTION=$(
       dialog --title "SYS INFO" --menu "" 15 60 4 \
       "em0" "*" \
@@ -58,46 +61,45 @@ if [ $exitstatus = 0 ]; then
     net_exitstatus=$?
     if [ $exitstatus = 0 ]; then
       case ${net_OPTION} in
-        "em0")
-          ipv4=IPv4___:+${ifconfig -a | grep inet | head -1 |cut -d' ' -f2}
-          netmask=Netmask:+${ifconfig -a | grep inet | head -1 | cut -d' ' -f4}
-          mac=MAC____:+${ifconfig -a | grep ether | head -1 | cut -d' ' -f2}
-          dialog --msgbox "
-          ${title}
+      "em0")
 
-          ${ipv4}
-          ${netmask}
-          ${mac}
-          " 15 60
-          ;;
-        "em1")
-          ipv4=IPv4___:+${ifconfig -a | grep inet | head -1 |cut -d' ' -f2}
-          netmask=Netmask:+${ifconfig -a | grep inet | head -1 | cut -d' ' -f4}
-          mac=MAC____:+${ifconfig -a | grep ether | head -1 | cut -d' ' -f2}
+        ipv4=IPv4___:+${ifconfig-a | grep inet | head -1 |cut -d' ' -f2}
+        netmask=Netmask:+${ifconfig-a | grep inet | head -1 | cut -d' ' -f4}
+        mac=MAC____:+${ifconfig-a | grep ether | head -1 | cut -d' ' -f2}
+        dialog --msgbox "
+            ${title}
 
-          dialog --msgbox "
-          ${title}
+            ${ipv4}
+            ${netmask}
+            ${mac}
+            " 15 60
+        ;;
+      "em1")
+        ipv4=IPv4___:+${ifconfig-a | grep inet | head -1 |cut -d' ' -f2}
+        netmask=Netmask:+${ifconfig-a | grep inet | head -1 | cut -d' ' -f4}
+        mac=MAC____:+${ifconfig-a | grep ether | head -1 | cut -d' ' -f2}
 
-          ${ipv4}
-          ${netmask}
-          ${mac}
-          " 15 60
-          ;;
-        "lo0") 
-          echo "lo0"
-          ;;
-        "pflo0")
-          ;;
+        dialog --msgbox "
+            ${title}
+
+            ${ipv4}
+            ${netmask}
+            ${mac}
+            " 15 60
+        ;;
+      "lo0")
+        echo "lo0"
+        ;;
+      "pflo0") ;;
+
       esac
-      vi
-    else
-      echo "you choose net_Canecel"
     fi
+    else
+    echo "you choose net_Canecel"
+    ;;
 
-
-  
-    
-  fi;
-else
-  echo "You chose Cancel."
+  "4")
+    echo "file browser"
+    ;;
+  esac
 fi
