@@ -83,14 +83,14 @@ if [ $exitstatus = 0 ]; then
         #elif [ net_OPTION = em1 ]; then
       "em1")
         em1_title="Interface Name: em1"
-        em1_ipv4="IPv4___: ${ifconfig -a | grep inet | head -1 | cut -d' ' -f2}"
+        em1_ipv4=IPv4___: $(ifconfig -a | grep inet | head -1 | cut -d' ' -f2)
         em1_netmask=Netmask: $(ifconfig -a | grep inet | head -1 | cut -d' ' -f4)
         em1_mac=MAC____: $(ifconfig -a | grep ether | head -1 | cut -d' ' -f2)
 
         dialog --msgbox "
             ${em1_title}
 
-            $em1_ipv4
+            ${em1_ipv4}
             ${em1_netmask}
             ${em1_mac}
             " 15 60
@@ -98,32 +98,32 @@ if [ $exitstatus = 0 ]; then
         ;;
         #elif [ net_OPTION = lo0 ]; then
       "lo0")
-        title=Interface Name: lo0
-        ipv4=IPv4___: $(ifconfig -a | grep inet | tail -1 | cut -d' ' -f2)
-        netmask=Netmask: $(ifconfig -a | grep inet | tail -1 | cut -d' ' -f4)
-        mac=MAC____: $(ifconfig -a | grep ether | head -1 | cut -d' ' -f2)
+        lo0_title=Interface Name: lo0
+        lo0_ipv4=IPv4___: $(ifconfig -a | grep inet | tail -1 | cut -d' ' -f2)
+        lo0_netmask=Netmask: $(ifconfig -a | grep inet | tail -1 | cut -d' ' -f4)
+        lo0_mac=MAC____: $(ifconfig -a | grep ether | head -1 | cut -d' ' -f2)
         dialog --msgbox "
-            ${title}
+            ${lo0_title}
 
-            ${ipv4}
-            ${netmask}
-            ${mac}
+            ${lo0_ipv4}
+            ${lo0_netmask}
+            ${lo0_mac}
             " 15 60
 
         echo "lo0"
         ;;
         #elif [ net_OPTION = pflo0 ]; then
       "pflo0")
-        title=Interface Name: em1
-        ipv4=IPv4___: $(ifconfig -a | grep pflo0 | tail -1 | cut -d' ' -f2)
-        netmask=Netmask: $(ifconfig -a | grep pflo0 | tail -1 | cut -d' ' -f4)
-        mac=MAC____: $(ifconfig -a | grep pflo0 | head -1 | cut -d' ' -f2)
+        pflo0_title=Interface Name: em1
+        pflo0_ipv4=IPv4___: $(ifconfig -a | grep pflo0 | tail -1 | cut -d' ' -f2)
+        pflo0_netmask=Netmask: $(ifconfig -a | grep pflo0 | tail -1 | cut -d' ' -f4)
+        pflo0_mac=MAC____: $(ifconfig -a | grep pflo0 | head -1 | cut -d' ' -f2)
         dialog --msgbox "
-            ${title}
+            ${pflo0_title}
 
-            ${ipv4}
-            ${netmask}
-            ${mac}
+            ${pflo0_ipv4}
+            ${pflo0_netmask}
+            ${pflo0_mac}
             " 15 60
         echo "pflo0"
         ;;
