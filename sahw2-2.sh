@@ -127,6 +127,9 @@ if [ $exitstatus = 0 ]; then
             " 15 60
         echo "pflo0"
         ;;
+      "*")
+        echo "false"
+        ;;
       esac
 
     else
