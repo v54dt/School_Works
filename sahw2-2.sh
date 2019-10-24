@@ -63,9 +63,9 @@ if [ $exitstatus = 0 ]; then
       case ${net_OPTION} in
       "em0")
 
-        ipv4=IPv4___:+${ifconfig-a | grep inet | head -1 |cut -d' ' -f2}
-        netmask=Netmask:+${ifconfig-a | grep inet | head -1 | cut -d' ' -f4}
-        mac=MAC____:+${ifconfig-a | grep ether | head -1 | cut -d' ' -f2}
+        ipv4=IPv4___: $(ifconfig -a | grep inet | head -1 |cut -d' ' -f2)
+        netmask=Netmask: $(ifconfig-a | grep inet | head -1 | cut -d' ' -f4)
+        mac=MAC____: $(ifconfig-a | grep ether | head -1 | cut -d' ' -f2)
         dialog --msgbox "
             ${title}
 
@@ -75,9 +75,9 @@ if [ $exitstatus = 0 ]; then
             " 15 60
         ;;
       "em1")
-        ipv4=IPv4___:+${ifconfig-a | grep inet | head -1 |cut -d' ' -f2}
-        netmask=Netmask:+${ifconfig-a | grep inet | head -1 | cut -d' ' -f4}
-        mac=MAC____:+${ifconfig-a | grep ether | head -1 | cut -d' ' -f2}
+        ipv4=IPv4___: $(ifconfig -a | grep inet | head -1 |cut -d' ' -f2)
+        netmask=Netmask: $(ifconfig -a | grep inet | head -1 | cut -d' ' -f4)
+        mac=MAC____: $(ifconfig -a | grep ether | head -1 | cut -d' ' -f2)
 
         dialog --msgbox "
             ${title}
@@ -93,13 +93,14 @@ if [ $exitstatus = 0 ]; then
       "pflo0") ;;
 
       esac
-    fi
     else
-    echo "you choose net_Canecel"
+      echo "you choose net_Canecel"
     ;;
-
+    fi
   "4")
     echo "file browser"
     ;;
   esac
+else
+    echo "you choose cancel"
 fi
