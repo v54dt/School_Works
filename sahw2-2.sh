@@ -66,7 +66,7 @@ if [ $exitstatus = 0 ]; then
     if [ $net_exitstatus = 0 ]; then
       case $net_OPTION in
       "em0")
-        
+
         ipv4=$(ifconfig -a | grep em0 | grep inet | cut -d' ' -f2)
         netmask=$(ifconfig-a | grep em0 | grep inet | cut -d' ' -f4)
         mac=$(ifconfig-a | grep em0 | grep inet | head -1 | cut -d' ' -f2)
@@ -81,7 +81,7 @@ if [ $exitstatus = 0 ]; then
         ;;
         #elif [ net_OPTION = em1 ]; then
       "em1")
-        
+
         ipv4=$(ifconfig -a | grep inet | head -1 | cut -d' ' -f2)
         netmask=$(ifconfig -a | grep inet | head -1 | cut -d' ' -f4)
         mac=$(ifconfig -a | grep ether | head -1 | cut -d' ' -f2)
@@ -98,7 +98,7 @@ if [ $exitstatus = 0 ]; then
         #elif [ net_OPTION = lo0 ]; then
       "lo0")
         ipv4=$(ifconfig -a | grep inet | tail -1 | cut -d' ' -f2)
-        netmask$(ifconfig -a | grep inet | tail -1 | cut -d' ' -f4)
+        netmask=$(ifconfig -a | grep inet | tail -1 | cut -d' ' -f4)
         mac=$(ifconfig -a | grep ether | head -1 | cut -d' ' -f2)
         dialog --msgbox "
             Interfce Name: lo0
@@ -108,37 +108,32 @@ if [ $exitstatus = 0 ]; then
             Mac____: ${mac} 
             " 15 60
 
-        echo "lo0"
+        #echo "lo0"
         ;;
         #elif [ net_OPTION = pflo0 ]; then
       "pflo0")
         title=Interface Name: em1
-        ipv4=IPv4___: $(ifconfig -a | grep pflo0 | tail -1 | cut -d' ' -f2)
-        netmask=Netmask: $(ifconfig -a | grep pflo0 | tail -1 | cut -d' ' -f4)
-        mac=MAC____: $(ifconfig -a | grep pflo0 | head -1 | cut -d' ' -f2)
+        ipv4=$(ifconfig -a | grep pflo0 | tail -1 | cut -d' ' -f2)
+        netmask=$(ifconfig -a | grep pflo0 | tail -1 | cut -d' ' -f4)
+        mac=$(ifconfig -a | grep pflo0 | head -1 | cut -d' ' -f2)
         dialog --msgbox "
             Interface Name: pflo0
             IPv4___: ${ipv4}
             Netmask: ${netmask} 
             Mac____: ${mac}  
             " 15 60
-        echo "pflo0"
+        #echo "pflo0"
         ;;
-      "*")
-        echo "false"
-        ;;
+
       esac
 
-    else
-      echo "you choose net canncel "
     fi
 
     ;;
+
   "4")
-    dialog --msgbox "file browser" 15 60
+    dialog --msgbox "File Browser" 15 60
     ;;
   esac
 
-else
-  echo "you choose cancel"
 fi
