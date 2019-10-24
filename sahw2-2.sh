@@ -41,12 +41,12 @@ if [ $exitstatus = 0 ]; then
     result_persent=${result_free_mem}*100/${result_total_mem}
     result_title="Memory Info and Usage"
 
-    dialog --gauge "
+    dialog --title "" --gauge "
     ${result_title}
     Total: ${result_total_mem}
     Used: ${result_used_mem}
     Free: ${result_free_mem}
-    " 15 60 5 40 ${result_persent}
+    " 15 60 ${result_persent}
     ;;
 
   "3")
@@ -62,7 +62,7 @@ if [ $exitstatus = 0 ]; then
     net_exitstatus=$?
     if [ $exitstatus = 0 ]; then
       case {$net_OPTION} in
-        "em0")
+      "em0")
         title=Interface Name: em0
         ipv4=IPv4___: $(ifconfig -a | grep em0 | grep inet | cut -d' ' -f2)
         netmask=Netmask: $(ifconfig-a | grep em0 | grep inet | cut -d' ' -f4)
@@ -76,8 +76,8 @@ if [ $exitstatus = 0 ]; then
             " 15 60
         echo "em0"
         ;;
-      #elif [ net_OPTION = em1 ]; then
-        "em1")
+        #elif [ net_OPTION = em1 ]; then
+      "em1")
         title=Interface Name: em1
         ipv4=IPv4___: $(ifconfig -a | grep inet | head -1 | cut -d' ' -f2)
         netmask=Netmask: $(ifconfig -a | grep inet | head -1 | cut -d' ' -f4)
@@ -92,8 +92,8 @@ if [ $exitstatus = 0 ]; then
             " 15 60
         echo "em1"
         ;;
-      #elif [ net_OPTION = lo0 ]; then
-        "lo0")
+        #elif [ net_OPTION = lo0 ]; then
+      "lo0")
         title=Interface Name: lo0
         ipv4=IPv4___: $(ifconfig -a | grep inet | tail -1 | cut -d' ' -f2)
         netmask=Netmask: $(ifconfig -a | grep inet | tail -1 | cut -d' ' -f4)
@@ -108,8 +108,8 @@ if [ $exitstatus = 0 ]; then
 
         echo "lo0"
         ;;
-      #elif [ net_OPTION = pflo0 ]; then
-        "pflo0")
+        #elif [ net_OPTION = pflo0 ]; then
+      "pflo0")
         title=Interface Name: em1
         ipv4=IPv4___: $(ifconfig -a | grep pflo0 | tail -1 | cut -d' ' -f2)
         netmask=Netmask: $(ifconfig -a | grep pflo0 | tail -1 | cut -d' ' -f4)
@@ -123,7 +123,8 @@ if [ $exitstatus = 0 ]; then
             " 15 60
         echo "pflo0"
         ;;
-      #fi
+      esac
+
     else
       echo "you choose net canncel "
     fi
@@ -133,6 +134,7 @@ if [ $exitstatus = 0 ]; then
     dialog --msgbox "file browser" 15 60
     ;;
   esac
+
 else
   echo "you choose cancel"
 fi
