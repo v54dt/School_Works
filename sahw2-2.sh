@@ -65,34 +65,34 @@ if [ $exitstatus = 0 ]; then
 
     net_exitstatus=$?
     if [ $net_exitstatus = 0 ]; then
-      case {$net_OPTION} in
+      case $net_OPTION in
       "em0")
-        title=Interface Name: em0
-        ipv4=IPv4___: $(ifconfig -a | grep em0 | grep inet | cut -d' ' -f2)
-        netmask=Netmask: $(ifconfig-a | grep em0 | grep inet | cut -d' ' -f4)
-        mac=MAC____: $(ifconfig-a | grep em0 | grep inet | head -1 | cut -d' ' -f2)
+        em0_title="Interface Name: em0"
+        em0_ipv4=IPv4___: $(ifconfig -a | grep em0 | grep inet | cut -d' ' -f2)
+        em0_netmask=Netmask: $(ifconfig-a | grep em0 | grep inet | cut -d' ' -f4)
+        em0_mac=MAC____: $(ifconfig-a | grep em0 | grep inet | head -1 | cut -d' ' -f2)
         dialog --msgbox "
-            ${title}
+            ${em0_title}
 
-            ${ipv4}
-            ${netmask}
-            ${mac}
+            ${em0_ipv4}
+            ${em0_netmask}
+            ${em0_mac}
             " 15 60
         echo "em0"
         ;;
         #elif [ net_OPTION = em1 ]; then
       "em1")
-        title=Interface Name: em1
-        ipv4=IPv4___: $(ifconfig -a | grep inet | head -1 | cut -d' ' -f2)
-        netmask=Netmask: $(ifconfig -a | grep inet | head -1 | cut -d' ' -f4)
-        mac=MAC____: $(ifconfig -a | grep ether | head -1 | cut -d' ' -f2)
+        em1_title="Interface Name: em1"
+        em1_ipv4="IPv4___: ${ifconfig -a | grep inet | head -1 | cut -d' ' -f2}"
+        em1_netmask=Netmask: $(ifconfig -a | grep inet | head -1 | cut -d' ' -f4)
+        em1_mac=MAC____: $(ifconfig -a | grep ether | head -1 | cut -d' ' -f2)
 
         dialog --msgbox "
-            ${title}
+            ${em1_title}
 
-            ${ipv4}
-            ${netmask}
-            ${mac}
+            $em1_ipv4
+            ${em1_netmask}
+            ${em1_mac}
             " 15 60
         echo "em1"
         ;;
