@@ -34,16 +34,21 @@ if [ $exitstatus = 0 ]; then
     #result_parcent=$(syctl hw.realmem hw.usermem hw.realmem | awk 'NR==1{result=$2}NR==2{result=result-$1}NR==3{result')
     
     declare -i result_total_mem
+    declare -i result_used_mem
     declare -i result_free_mem
     declare -i result_persent
     result_total_mem=$(sysctl hw.realmem | cut -d' ' -f2 | bc)
     result_used_mem=$(sysctl hw.usermem | cut -d' ' -f2 | bc)
+
+    
 
 
 
     result_free_mem=result_total_mem-result_used_mem
     result_persent=${result_free_mem}*100/${result_total_mem}
     result_title="Memory Info and Usage"
+
+    
 
     dialog --title "" --gauge "
     ${result_title}
@@ -72,11 +77,11 @@ if [ $exitstatus = 0 ]; then
         em0_netmask=Netmask: $(ifconfig-a | grep em0 | grep inet | cut -d' ' -f4)
         em0_mac=MAC____: $(ifconfig-a | grep em0 | grep inet | head -1 | cut -d' ' -f2)
         dialog --msgbox "
-            $em0_title \
+            $em0_title 
 
-            $em0_ipv4 \
-            $em0_netmask \
-            $em0_mac \
+            $em0_ipv4 
+            $em0_netmask 
+            $em0_mac 
             " 15 60
         echo "em0"
         ;;
@@ -88,11 +93,11 @@ if [ $exitstatus = 0 ]; then
         em1_mac=MAC____: $(ifconfig -a | grep ether | head -1 | cut -d' ' -f2)
 
         dialog --msgbox "
-            $em1_title 
+            ${em1_title} 
 
-            $em1_ipv4 
-            $em1_netmask 
-            $em1_mac 
+            ${em1_ipv4} 
+            ${em1_netmask} 
+            ${em1_mac}
             " 15 60
         echo "em1"
         ;;
