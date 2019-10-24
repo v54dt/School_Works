@@ -62,10 +62,10 @@ if [ $exitstatus = 0 ]; then
     if [ $exitstatus = 0 ]; then
       case ${net_OPTION} in
       "em0")
-
-        ipv4=IPv4___: $(ifconfig -a | grep inet | head -1 |cut -d' ' -f2)
-        netmask=Netmask: $(ifconfig-a | grep inet | head -1 | cut -d' ' -f4)
-        mac=MAC____: $(ifconfig-a | grep ether | head -1 | cut -d' ' -f2)
+        title=Interface Name: em0
+        ipv4=IPv4___: $(ifconfig -a | grep em0 | grep inet |cut -d' ' -f2)
+        netmask=Netmask: $(ifconfig-a | grep em0 | grep inet | cut -d' ' -f4)
+        mac=MAC____: $(ifconfig-a | grep em0 | grep inet | head -1 | cut -d' ' -f2)
         dialog --msgbox "
             ${title}
 
@@ -75,6 +75,7 @@ if [ $exitstatus = 0 ]; then
             " 15 60
         ;;
       "em1")
+        title=Interface Name: em1
         ipv4=IPv4___: $(ifconfig -a | grep inet | head -1 |cut -d' ' -f2)
         netmask=Netmask: $(ifconfig -a | grep inet | head -1 | cut -d' ' -f4)
         mac=MAC____: $(ifconfig -a | grep ether | head -1 | cut -d' ' -f2)
@@ -88,9 +89,34 @@ if [ $exitstatus = 0 ]; then
             " 15 60
         ;;
       "lo0")
+        title=Interface Name: lo0
+        ipv4=IPv4___: $(ifconfig -a | grep inet | tail -1 |cut -d' ' -f2)
+        netmask=Netmask: $(ifconfig -a | grep inet | tail -1 |cut -d' ' -f4)
+        mac=MAC____: $(ifconfig -a | grep ether | head -1 | cut -d' ' -f2)
+        dialog --msgbox "
+            ${title}
+
+            ${ipv4}
+            ${netmask}
+            ${mac}
+            " 15 60
+
         echo "lo0"
         ;;
-      "pflo0") ;;
+      "pflo0")
+        title=Interface Name: em1
+        ipv4=IPv4___: $(ifconfig -a | grep pflo0 | tail -1 |cut -d' ' -f2)
+        netmask=Netmask: $(ifconfig -a | grep pflo0 | tail -1 |cut -d' ' -f4)
+        mac=MAC____: $(ifconfig -a | grep pflo0 | head -1 | cut -d' ' -f2)
+        dialog --msgbox "
+            ${title}
+
+            ${ipv4}
+            ${netmask}
+            ${mac}
+            " 15 60
+        ;;
+
 
       esac
     else
