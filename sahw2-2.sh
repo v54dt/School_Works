@@ -58,12 +58,13 @@ if [ $exitstatus = 0 ]; then
       "lo0" "*" \
       "pflog0" "*" 3>&1 1>&2 2>&3
     )
+
     net_exitstatus=$?
     if [ $exitstatus = 0 ]; then
-      case ${net_OPTION} in
-      "em0")
+      case {$net_OPTION} in
+        "em0")
         title=Interface Name: em0
-        ipv4=IPv4___: $(ifconfig -a | grep em0 | grep inet |cut -d' ' -f2)
+        ipv4=IPv4___: $(ifconfig -a | grep em0 | grep inet | cut -d' ' -f2)
         netmask=Netmask: $(ifconfig-a | grep em0 | grep inet | cut -d' ' -f4)
         mac=MAC____: $(ifconfig-a | grep em0 | grep inet | head -1 | cut -d' ' -f2)
         dialog --msgbox "
@@ -73,10 +74,12 @@ if [ $exitstatus = 0 ]; then
             ${netmask}
             ${mac}
             " 15 60
+        echo "em0"
         ;;
-      "em1")
+      #elif [ net_OPTION = em1 ]; then
+        "em1")
         title=Interface Name: em1
-        ipv4=IPv4___: $(ifconfig -a | grep inet | head -1 |cut -d' ' -f2)
+        ipv4=IPv4___: $(ifconfig -a | grep inet | head -1 | cut -d' ' -f2)
         netmask=Netmask: $(ifconfig -a | grep inet | head -1 | cut -d' ' -f4)
         mac=MAC____: $(ifconfig -a | grep ether | head -1 | cut -d' ' -f2)
 
@@ -87,11 +90,13 @@ if [ $exitstatus = 0 ]; then
             ${netmask}
             ${mac}
             " 15 60
+        echo "em1"
         ;;
-      "lo0")
+      #elif [ net_OPTION = lo0 ]; then
+        "lo0")
         title=Interface Name: lo0
-        ipv4=IPv4___: $(ifconfig -a | grep inet | tail -1 |cut -d' ' -f2)
-        netmask=Netmask: $(ifconfig -a | grep inet | tail -1 |cut -d' ' -f4)
+        ipv4=IPv4___: $(ifconfig -a | grep inet | tail -1 | cut -d' ' -f2)
+        netmask=Netmask: $(ifconfig -a | grep inet | tail -1 | cut -d' ' -f4)
         mac=MAC____: $(ifconfig -a | grep ether | head -1 | cut -d' ' -f2)
         dialog --msgbox "
             ${title}
@@ -103,10 +108,11 @@ if [ $exitstatus = 0 ]; then
 
         echo "lo0"
         ;;
-      "pflo0")
+      #elif [ net_OPTION = pflo0 ]; then
+        "pflo0")
         title=Interface Name: em1
-        ipv4=IPv4___: $(ifconfig -a | grep pflo0 | tail -1 |cut -d' ' -f2)
-        netmask=Netmask: $(ifconfig -a | grep pflo0 | tail -1 |cut -d' ' -f4)
+        ipv4=IPv4___: $(ifconfig -a | grep pflo0 | tail -1 | cut -d' ' -f2)
+        netmask=Netmask: $(ifconfig -a | grep pflo0 | tail -1 | cut -d' ' -f4)
         mac=MAC____: $(ifconfig -a | grep pflo0 | head -1 | cut -d' ' -f2)
         dialog --msgbox "
             ${title}
@@ -115,18 +121,18 @@ if [ $exitstatus = 0 ]; then
             ${netmask}
             ${mac}
             " 15 60
+        echo "pflo0"
         ;;
-
-
-      esac
+      #fi
     else
-      echo "you choose net_Canecel"
-    ;;
+      echo "you choose net canncel "
     fi
+
+    ;;
   "4")
-    echo "file browser"
+    dialog --msgbox "file browser" 15 60
     ;;
   esac
 else
-    echo "you choose cancel"
+  echo "you choose cancel"
 fi
