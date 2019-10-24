@@ -72,11 +72,11 @@ if [ $exitstatus = 0 ]; then
         em0_netmask=Netmask: $(ifconfig-a | grep em0 | grep inet | cut -d' ' -f4)
         em0_mac=MAC____: $(ifconfig-a | grep em0 | grep inet | head -1 | cut -d' ' -f2)
         dialog --msgbox "
-            ${em0_title}
+            $em0_title \
 
-            ${em0_ipv4}
-            ${em0_netmask}
-            ${em0_mac}
+            $em0_ipv4 \
+            $em0_netmask \
+            $em0_mac \
             " 15 60
         echo "em0"
         ;;
@@ -88,11 +88,11 @@ if [ $exitstatus = 0 ]; then
         em1_mac=MAC____: $(ifconfig -a | grep ether | head -1 | cut -d' ' -f2)
 
         dialog --msgbox "
-            ${em1_title}
+            $em1_title \
 
-            ${em1_ipv4}
-            ${em1_netmask}
-            ${em1_mac}
+            $em1_ipv4 \
+            $em1_netmask \
+            $em1_mac \
             " 15 60
         echo "em1"
         ;;
@@ -103,11 +103,11 @@ if [ $exitstatus = 0 ]; then
         lo0_netmask=Netmask: $(ifconfig -a | grep inet | tail -1 | cut -d' ' -f4)
         lo0_mac=MAC____: $(ifconfig -a | grep ether | head -1 | cut -d' ' -f2)
         dialog --msgbox "
-            ${lo0_title}
+            $lo0_title \
 
-            ${lo0_ipv4}
-            ${lo0_netmask}
-            ${lo0_mac}
+            $lo0_ipv4 \
+            $lo0_netmask \
+            $lo0_mac \
             " 15 60
 
         echo "lo0"
@@ -119,11 +119,11 @@ if [ $exitstatus = 0 ]; then
         pflo0_netmask=Netmask: $(ifconfig -a | grep pflo0 | tail -1 | cut -d' ' -f4)
         pflo0_mac=MAC____: $(ifconfig -a | grep pflo0 | head -1 | cut -d' ' -f2)
         dialog --msgbox "
-            ${pflo0_title}
+            $pflo0_title \
 
-            ${pflo0_ipv4}
-            ${pflo0_netmask}
-            ${pflo0_mac}
+            $pflo0_ipv4 \
+            $pflo0_netmask \
+            $pflo0_mac \
             " 15 60
         echo "pflo0"
         ;;
