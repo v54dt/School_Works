@@ -39,7 +39,7 @@ if [ $exitstatus = 0 ]; then
     result_total_mem=$(sysctl hw.realmem | cut -d' ' -f2 | bc)
     result_used_mem=$(sysctl hw.usermem | cut -d' ' -f2 | bc)
 
-    
+
 
     result_free_mem=result_total_mem-result_used_mem
     result_persent=${result_free_mem}*100/${result_total_mem}
@@ -64,7 +64,7 @@ if [ $exitstatus = 0 ]; then
     )
 
     net_exitstatus=$?
-    if [ $exitstatus = 0 ]; then
+    if [ $net_exitstatus = 0 ]; then
       case {$net_OPTION} in
       "em0")
         title=Interface Name: em0
