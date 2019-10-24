@@ -32,11 +32,15 @@ if [ $exitstatus = 0 ]; then
     #sysctl hw.realmem hw.usermem | awk 'NR==1{resut=$2;}NR==2{result=result-$2}END{print(result)}'
 
     #result_parcent=$(syctl hw.realmem hw.usermem hw.realmem | awk 'NR==1{result=$2}NR==2{result=result-$1}NR==3{result')
-
-    result_total_mem=$(sysctl hw.realmem | cut -d' ' -f2 | bc)
-    result_used_mem=$(sysctl hw.usermem | cut -d' ' -f2 | bc)
+    
+    declare -i result_total_mem
     declare -i result_free_mem
     declare -i result_persent
+    result_total_mem=$(sysctl hw.realmem | cut -d' ' -f2 | bc)
+    result_used_mem=$(sysctl hw.usermem | cut -d' ' -f2 | bc)
+
+    
+
     result_free_mem=result_total_mem-result_used_mem
     result_persent=${result_free_mem}*100/${result_total_mem}
     result_title="Memory Info and Usage"
